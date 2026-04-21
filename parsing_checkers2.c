@@ -1,30 +1,26 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   parse2.c                                           :+:      :+:    :+:   */
+/*   parsing_checkers2.c                                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: mohassaf <mohassaf@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2026/04/20 17:09:31 by mohassaf          #+#    #+#             */
-/*   Updated: 2026/04/21 09:46:52 by mohassaf         ###   ########.fr       */
+/*   Created: 2026/04/21 12:01:53 by mohassaf          #+#    #+#             */
+/*   Updated: 2026/04/21 16:39:44 by mohassaf         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "so_long.h"
 
-int	ends_with_new_line(char *line)
+void	check_has_valid_path(char **map)
 {
-	int	len;
+	char	**map_copy;
 
-	len = ft_strlen(line);
-	if (line[len - 1] == '\n')
-		return (1);
-	return (0);
+	map_copy = copy_map(map);
+	map_fill(map_copy);
+	if (map_contain_char(map_copy, 'C') == 1 || map_contain_char(map_copy, 'P') == 1 || map_contain_char(map_copy, 'E') == 1)
+	{
+		ft_printf("Error\nThe map does not contain valid path\n");
+		exit(1);
+	}
 }
-int	is_valid_char(char c)
-{
-	if (c == '1' || c == '0' || c == 'C' || c == 'P' || c == 'E')
-		return (1);
-	return (0);
-}
-
