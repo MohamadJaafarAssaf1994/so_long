@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   parsing_checkers.c                                 :+:      :+:    :+:   */
+/*   parsing_checkers1.c                                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: mohassaf <mohassaf@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/21 09:33:45 by mohassaf          #+#    #+#             */
-/*   Updated: 2026/04/21 11:55:57 by mohassaf         ###   ########.fr       */
+/*   Updated: 2026/04/23 12:04:05 by mohassaf         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,7 +53,7 @@ void	check_invalid_characters(char **map)
 		{
 			if (!is_valid_char(map[i][j]))
 			{
-				ft_printf("Error\nThe map has invalid character(s)");
+				ft_printf("Error\nThe map has invalid character(s)\nCharacters allowed are: 0 1 C E P\n");
 				exit(1);
 			}
 			j++;

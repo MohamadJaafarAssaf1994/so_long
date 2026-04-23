@@ -7,9 +7,9 @@ RM = rm -f
 LIBFT_DIR = libft
 LIBFT = $(LIBFT_DIR)/libft.a
 
-MLX_DIR ?= $(firstword $(wildcard minilibx-linux) $(wildcard ../Downloads/minilibx-linux))
-ifeq ($(strip $(MLX_DIR)),)
-$(error MiniLibX not found. Put it in ./minilibx-linux or run make MLX_DIR=/path/to/minilibx-linux)
+MLX_DIR ?= minilibx-linux
+ifeq ($(wildcard $(MLX_DIR)/mlx.h),)
+$(error MiniLibX not found in $(MLX_DIR). Run make MLX_DIR=/path/to/minilibx-linux)
 endif
 
 CPPFLAGS = -I. -Ilibft -Ilibft/getNextLine -Ilibft/libftprintf -I$(MLX_DIR)
@@ -26,7 +26,11 @@ SRCS = so_long.c \
 	parsing_checkers2.c \
 	parsing_checkers_utils.c \
 	parsing_checkers_utils_path.c \
-	parsing_checkers_utils_walls.c
+	parsing_checkers_utils_walls.c \
+	parsing_utils.c \
+	so_long_utils.c \
+	run_game.c \
+	game_design.c
 
 OBJS = $(SRCS:.c=.o)
 
