@@ -54,6 +54,11 @@ Rebuild everything with:
 make re
 ```
 
+For bonus
+```bash
+make re
+```
+
 ### Execution
 
 Run the game with a valid map name:
@@ -61,7 +66,11 @@ Run the game with a valid map name:
 ```bash
 ./so_long valid_path.ber
 ```
+Or
 
+```bash
+./so_long_bonus valid_path.ber
+```
 Important note: the program automatically looks inside the `maps/` directory, so you
 should pass the file name, not the full path.
 
