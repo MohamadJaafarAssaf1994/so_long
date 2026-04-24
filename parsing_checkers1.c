@@ -6,22 +6,23 @@
 /*   By: mohassaf <mohassaf@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/21 09:33:45 by mohassaf          #+#    #+#             */
-/*   Updated: 2026/04/23 12:04:05 by mohassaf         ###   ########.fr       */
+/*   Updated: 2026/04/24 14:26:42 by mohassaf         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "so_long.h"
 
-void	check_is_empty(char **map)
+int	check_is_empty(char **map)
 {
 	if (map[0] == NULL)
 	{
-		ft_printf("Error\nThe tab must not be empty.");
-		exit(1);
+		ft_printf("Error\nThe tab must not be empty.\n");
+		return(1);
 	}
+	return (0);
 }
 
-void	check_walls(char **map)
+int	check_walls(char **map)
 {
 	int	message_flag;
 
@@ -36,10 +37,11 @@ void	check_walls(char **map)
 			ft_printf("Error\nThe map must be enclosed/surrounded by upper wall.\n");
 		if (message_flag == 4)
 			ft_printf("Error\nThe map must be enclosed/surrounded by lower wall.\n");
-		exit(1);
+		return(1);
 	}
+	return (0);
 }
-void	check_invalid_characters(char **map)
+int	check_invalid_characters(char **map)
 {
 	int	i;
 	int	j;
@@ -54,14 +56,15 @@ void	check_invalid_characters(char **map)
 			if (!is_valid_char(map[i][j]))
 			{
 				ft_printf("Error\nThe map has invalid character(s)\nCharacters allowed are: 0 1 C E P\n");
-				exit(1);
+				return (1);
 			}
 			j++;
 		}
 		i++;
 	}
+	return (0);
 }
-void	check_is_rectangular(char **map)
+int	check_is_rectangular(char **map)
 {
 	size_t	len;
 	int		i;
@@ -70,7 +73,7 @@ void	check_is_rectangular(char **map)
 	if (!map || !map[0] || !map[1])
 	{
 		ft_printf("Error\nThe map must be rectangular");
-		exit(1);
+		return(1);
 	}
 	len = ft_strlen(map[0]);
 	while (map[i] != NULL)
@@ -78,18 +81,20 @@ void	check_is_rectangular(char **map)
 		if (ft_strlen(map[i]) != len)
 		{
 			ft_printf("Error\nThe map must be rectangular");
-			exit(1);
+			return (1);
 		}
 		i++;
 	}
+	return (0);
 }
 
-void	check_start_exit_coll(char **map)
+int	check_start_exit_coll(char **map)
 {
 	if (map_contain_char(map, 'E') == 0 || map_contain_char(map, 'C') == 0
 		|| map_contain_char(map, 'P') == 0)
 	{
 		ft_printf("Error\nThe map must contain 1 exit, 1 starting position and at least 1 collectible.");
-		exit(1);
+		return (1);
 	}
+	return (0);
 }

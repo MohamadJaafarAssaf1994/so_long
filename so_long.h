@@ -6,7 +6,7 @@
 /*   By: mohassaf <mohassaf@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/20 12:02:09 by mohassaf          #+#    #+#             */
-/*   Updated: 2026/04/23 20:13:30 by mohassaf         ###   ########.fr       */
+/*   Updated: 2026/04/24 14:18:54 by mohassaf         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,6 +67,7 @@ typedef struct s_game
 	t_img	exit_img;
 	t_img	collectible_img;
 	t_img	enemy_img;
+	t_img	score_back;
 
 	t_img	player_frames[2][4];
 	int		current_frame_change;
@@ -75,7 +76,9 @@ typedef struct s_game
 
 	t_enemy	enemy_player;
 
-	t_img	enemy_frames[4];
+	t_img	enemy_frames[2];
+	int		enemy_current_frame;
+	int		enemy_counter;
 
 }			t_game;
 
@@ -83,20 +86,20 @@ void		parse_game(t_game *game, char *filename);
 void		start_game(t_game *game);
 t_map		*file_to_map(char *filename);
 void		print_tab(char **tab);
-void		check_invalid_characters(char **map);
+int		check_invalid_characters(char **map);
 int			tab_len(char **tab);
-void		check_is_rectangular(char **map);
+int			check_is_rectangular(char **map);
 int			ends_with_new_line(char *line);
 int			map_contain_char(char **map, char c);
-void		check_start_exit_coll(char **map);
+int			check_start_exit_coll(char **map);
 int			is_valid_char(char c);
-void		check_is_empty(char **map);
-void		check_walls(char **map);
+int			check_is_empty(char **map);
+int			check_walls(char **map);
 int			has_right_wall(char **map, int *message_flag);
 int			has_left_wall(char **map, int *message_flag);
 int			has_upper_wall(char **map, int *message_flag);
 int			has_lower_wall(char **map, int *message_flag);
-void		check_has_valid_path(char **map);
+int			check_has_valid_path(char **map);
 char		**copy_map(char **map);
 void		map_fill(char **map);
 void		init_start(char **map, t_point *start);
@@ -114,3 +117,4 @@ void		setup_hooks(t_game *game);
 void		draw_tile(t_game *game, char tile, int x, int y);
 int			close_game(void *param);
 void		cleanup(t_game *game);
+void		load_all_textures(t_game *game);

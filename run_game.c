@@ -6,37 +6,51 @@
 /*   By: mohassaf <mohassaf@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/22 19:14:15 by mohassaf          #+#    #+#             */
-/*   Updated: 2026/04/23 20:24:43 by mohassaf         ###   ########.fr       */
+/*   Updated: 2026/04/24 13:52:24 by mohassaf         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "so_long.h"
 
-static void	player_hits_collectible(t_game *game, int y, int x_coll,
-		int y_coll)
+static void	check_enemy_collision(t_game *game)
 {
+	if (game->player_point.x == game->enemy_player.enemy_point.x
+		&& game->player_point.y == game->enemy_player.enemy_point.y)
+	{
+		ft_printf("Game Over\n");
+		close_game(game);
+	}
+}
+static void	player_hits_collectible(t_game *game, int y, int x_coll, int y_coll)
+{
+	game->moves++;
 	game->collected++;
 	game->map->map_array[x_coll][y_coll] = 'P';
 	game->map->map_array[game->player_point.x][game->player_point.y] = '0';
 	game->player_point.x = x_coll;
 	game->player_point.y = y_coll;
-	if ((y == -1 && game->current_frame_change == 1) || ( y == 1 && game->current_frame_change == 0))
+	if ((y == -1 && game->current_frame_change == 1) || (y == 1
+			&& game->current_frame_change == 0))
 		game->current_frame_same = (game->current_frame_same + 1) % 4;
-	else if ((y == 1 && game->current_frame_change == 1) || (y == -1 && game->current_frame_change == 0))
+	else if ((y == 1 && game->current_frame_change == 1) || (y == -1
+			&& game->current_frame_change == 0))
 		game->current_frame_change = (game->current_frame_change + 1) % 2;
 	render_map(game);
 }
-static void	player_free_go(t_game *game, int y, int next_pos_x,
-		int next_pos_y)
+static void	player_free_go(t_game *game, int y, int next_pos_x, int next_pos_y)
 {
+	game->moves++;
 	game->map->map_array[game->player_point.x][game->player_point.y] = '0';
 	game->map->map_array[next_pos_x][next_pos_y] = 'P';
 	game->player_point.x = next_pos_x;
 	game->player_point.y = next_pos_y;
-	if ((y == -1 && game->current_frame_change == 1) || ( y == 1 && game->current_frame_change == 0))
+	if ((y == -1 && game->current_frame_change == 1) || (y == 1
+			&& game->current_frame_change == 0))
 		game->current_frame_same = (game->current_frame_same + 1) % 4;
-	else if ((y == 1 && game->current_frame_change == 1) || (y == -1 && game->current_frame_change == 0))
+	else if ((y == 1 && game->current_frame_change == 1) || (y == -1
+			&& game->current_frame_change == 0))
 		game->current_frame_change = (game->current_frame_change + 1) % 2;
+	check_enemy_collision(game);
 	render_map(game);
 }
 
@@ -45,14 +59,18 @@ static void	player_hits_exit(t_game *game, int y, int next_pos_x,
 {
 	if (game->collected != game->collectibles)
 		return ;
-	ft_printf("finished");
+	game->moves++;
+	ft_printf("You win!\n");
+	close_game(game);
 	game->map->map_array[game->player_point.x][game->player_point.y] = '0';
 	game->map->map_array[next_pos_x][next_pos_y] = 'P';
 	game->player_point.x = next_pos_x;
 	game->player_point.y = next_pos_y;
-	if ((y == -1 && game->current_frame_change == 1) || ( y == 1 && game->current_frame_change == 0))
+	if ((y == -1 && game->current_frame_change == 1) || (y == 1
+			&& game->current_frame_change == 0))
 		game->current_frame_same = (game->current_frame_same + 1) % 4;
-	else if ((y == 1 && game->current_frame_change == 1) || (y == -1 && game->current_frame_change == 0))
+	else if ((y == 1 && game->current_frame_change == 1) || (y == -1
+			&& game->current_frame_change == 0))
 		game->current_frame_change = (game->current_frame_change + 1) % 2;
 	render_map(game);
 }
@@ -81,25 +99,13 @@ static int	key_press(int keycode, void *param)
 	if (keycode == ESC)
 		close_game(game);
 	else if (keycode == W)
-	{
-		ft_printf("W pressed\n");
 		move_player(game, -1, 0);
-	}
 	else if (keycode == S)
-	{
-		ft_printf("S pressed\n");
 		move_player(game, 1, 0);
-	}
 	else if (keycode == A)
-	{
-		ft_printf("A pressed\n");
 		move_player(game, 0, -1);
-	}
 	else if (keycode == D)
-	{
-		ft_printf("D pressed\n");
 		move_player(game, 0, 1);
-	}
 	return (0);
 }
 int	close_game(void *param)
@@ -111,13 +117,33 @@ int	close_game(void *param)
 	exit(0);
 	return (0);
 }
+void	enemy_loop(t_game *game)
+{
+	game->frame_delay++;
+	if (game->frame_delay < 40000)
+		return ;
+	game->frame_delay = 0;
+	if (game->enemy_counter % 3 == 0)
+	{
+		game->enemy_player.dir = game->enemy_player.dir * (-1);
+		game->enemy_counter++;
+	}
+	game->enemy_counter++;
+	game->enemy_player.enemy_point.y = game->enemy_player.enemy_point.y
+		+ game->enemy_player.dir;
+	game->enemy_current_frame = (game->enemy_current_frame + 1) % 2;
+	check_enemy_collision(game);
+	render_map(game);
+}
+
 void	setup_hooks(t_game *game)
 {
 	mlx_key_hook(game->win, key_press, game);
-/*#pragma GCC diagnostic push
-#pragma GCC diagnostic ignored "-Wcast-function-type"*/
+	/*#pragma GCC diagnostic push
+	#pragma GCC diagnostic ignored "-Wcast-function-type"*/
+	mlx_loop_hook(game->mlx, (void *)enemy_loop, game);
 	mlx_hook(game->win, 17, 0, (void *)close_game, game);
-/*#pragma GCC diagnostic pop*/
+	/*#pragma GCC diagnostic pop*/
 }
 
 void	start_game(t_game *game)
@@ -126,22 +152,13 @@ void	start_game(t_game *game)
 	if (!game->mlx)
 		error_exit("Error\nmlx_init failed: run from a graphical X11 session.\n");
 	game->win = mlx_new_window(game->mlx, game->map->length * 64,
-			game->map->width * 64, "so_long");
+			(game->map->width + 1) * 64, "so_long");
 	if (!game->win)
+	{
+		cleanup(game);
 		error_exit("Error\nmlx_new_window failed\n");
-	load_textures(game, &game->wall, "textures/wall.xpm");
-	load_textures(game, &game->floor, "textures/floor.xpm");
-	load_textures(game, &game->player_frames[0][0], "textures/player_D_0.xpm");
-	load_textures(game, &game->player_frames[0][1], "textures/player_D_1.xpm");
-	load_textures(game, &game->player_frames[0][2], "textures/player_D_2.xpm");
-	load_textures(game, &game->player_frames[0][3], "textures/player_D_3.xpm");
-	load_textures(game, &game->player_frames[1][0], "textures/player_A_0.xpm");
-	load_textures(game, &game->player_frames[1][1], "textures/player_A_1.xpm");
-	load_textures(game, &game->player_frames[1][2], "textures/player_A_2.xpm");
-	load_textures(game, &game->player_frames[1][3], "textures/player_A_3.xpm");
-	load_textures(game, &game->exit_img, "textures/exit.xpm");
-	load_textures(game, &game->collectible_img, "textures/collectible.xpm");
-	// load_textures(game, &game->enemy_img, "textures/enemy.xpm");
+	}
+	load_all_textures(game);
 	render_map(game);
 	setup_hooks(game);
 	mlx_loop(game->mlx);
@@ -149,8 +166,8 @@ void	start_game(t_game *game)
 
 static void	destroy_player_images(t_game *game)
 {
-	int x;
-	int y;
+	int	x;
+	int	y;
 
 	x = 0;
 	y = 0;
@@ -159,28 +176,47 @@ static void	destroy_player_images(t_game *game)
 		y = 0;
 		while (y < 4)
 		{
-			if(game->player_frames[x][y].img)
+			if (game->player_frames[x][y].img)
 				mlx_destroy_image(game->mlx, game->player_frames[x][y].img);
 			y++;
 		}
 		x++;
 	}
 }
+
+static void	destroy_enemy_images(t_game *game)
+{
+	int	x;
+
+	x = 0;
+	while (x < 2)
+	{
+		if (game->enemy_frames[x].img)
+			mlx_destroy_image(game->mlx, game->enemy_frames[x].img);
+		x++;
+	}
+}
 void	cleanup(t_game *game)
 {
 	destroy_player_images(game);
-	if(game->wall.img)
+	destroy_enemy_images(game);
+	if (game->wall.img)
 		mlx_destroy_image(game->mlx, game->wall.img);
-	if(game->floor.img)
+	if (game->floor.img)
 		mlx_destroy_image(game->mlx, game->floor.img);
-	if(game->exit_img.img)
+	if (game->exit_img.img)
 		mlx_destroy_image(game->mlx, game->exit_img.img);
-	if(game->collectible_img.img)
+	if (game->collectible_img.img)
 		mlx_destroy_image(game->mlx, game->collectible_img.img);
 	if (game->win)
 		mlx_destroy_window(game->mlx, game->win);
-	ft_free_all(game->map->map_array);
-	if(game->mlx)
+	if (game->score_back.img)
+		mlx_destroy_image(game->mlx, game->score_back.img);
+	if (game->map)
+		ft_free_all(game->map->map_array);
+	if (game->map)
+		free(game->map);
+	if (game->mlx)
 	{
 		mlx_destroy_display(game->mlx);
 		free(game->mlx);
