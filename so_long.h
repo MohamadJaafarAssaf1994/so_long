@@ -6,7 +6,7 @@
 /*   By: mohassaf <mohassaf@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/20 12:02:09 by mohassaf          #+#    #+#             */
-/*   Updated: 2026/04/24 14:18:54 by mohassaf         ###   ########.fr       */
+/*   Updated: 2026/04/24 19:37:43 by mohassaf         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,7 @@ typedef struct s_point
 typedef struct s_map
 {
 	char	**map_array;
-	int		width;
+	int		wi;
 	int		length;
 }			t_map;
 
@@ -37,12 +37,12 @@ typedef struct s_img
 {
 	void	*img;
 	int		length;
-	int		width;
+	int		wi;
 }			t_img;
 
 typedef struct s_enemy
 {
-	t_point	enemy_point;
+	t_point	e_pt;
 	int		dir;
 }			t_enemy;
 
@@ -53,7 +53,7 @@ typedef struct s_game
 
 	t_map	*map;
 
-	t_point	player_point;
+	t_point	p_pt;
 
 	int		moves;
 	int		collectibles;
@@ -67,17 +67,17 @@ typedef struct s_game
 	t_img	exit_img;
 	t_img	collectible_img;
 	t_img	enemy_img;
-	t_img	score_back;
+	t_img	sc_img;
 
 	t_img	player_frames[2][4];
-	int		current_frame_change;
-	int		current_frame_same;
+	int		cu_fr_ch;
+	int		cu_fr_sa;
 	int		frame_delay;
 
 	t_enemy	enemy_player;
 
 	t_img	enemy_frames[2];
-	int		enemy_current_frame;
+	int		en_frame;
 	int		enemy_counter;
 
 }			t_game;
@@ -86,7 +86,7 @@ void		parse_game(t_game *game, char *filename);
 void		start_game(t_game *game);
 t_map		*file_to_map(char *filename);
 void		print_tab(char **tab);
-int		check_invalid_characters(char **map);
+int			check_invalid_characters(char **map);
 int			tab_len(char **tab);
 int			check_is_rectangular(char **map);
 int			ends_with_new_line(char *line);
@@ -101,11 +101,10 @@ int			has_upper_wall(char **map, int *message_flag);
 int			has_lower_wall(char **map, int *message_flag);
 int			check_has_valid_path(char **map);
 char		**copy_map(char **map);
-void		map_fill(char **map);
+void		map_fill(char **map, char to_fill);
 void		init_start(char **map, t_point *start);
-void		fill(char **tab, t_point curr, char to_fill, int nb_rows,
-				int nb_columns);
-void		*ft_free_all(char **arr);
+void		fill(char **map, t_point curr, char to_fill);
+void		ft_free_all(char **arr);
 int			lines_count(char *file_path);
 t_point		find_coordinates_by_char(t_game *game, char c);
 int			count_coll_by_char(t_game *game);
@@ -118,3 +117,11 @@ void		draw_tile(t_game *game, char tile, int x, int y);
 int			close_game(void *param);
 void		cleanup(t_game *game);
 void		load_all_textures(t_game *game);
+int			open_file(char *path, char *filename, t_map *map);
+void		set_map_dimensions(t_map *map);
+void		destroy_enemy_images(t_game *game);
+void		destroy_player_images(t_game *game);
+int			key_press(int keycode, void *param);
+void		move_player(t_game *game, int x, int y);
+int			name_extension_check(char *filename);
+void		check_enemy_collision(t_game *game);

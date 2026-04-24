@@ -6,7 +6,7 @@
 /*   By: mohassaf <mohassaf@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/21 09:33:45 by mohassaf          #+#    #+#             */
-/*   Updated: 2026/04/24 14:26:42 by mohassaf         ###   ########.fr       */
+/*   Updated: 2026/04/24 18:55:57 by mohassaf         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@ int	check_is_empty(char **map)
 	if (map[0] == NULL)
 	{
 		ft_printf("Error\nThe tab must not be empty.\n");
-		return(1);
+		return (1);
 	}
 	return (0);
 }
@@ -27,20 +27,27 @@ int	check_walls(char **map)
 	int	message_flag;
 
 	message_flag = 0;
-	if (!(has_right_wall(map, &message_flag) && has_left_wall(map, &message_flag) && has_upper_wall(map, &message_flag) && has_lower_wall(map, &message_flag)))
+	if (!(has_right_wall(map, &message_flag) && has_left_wall(map,
+				&message_flag) && has_upper_wall(map, &message_flag)
+			&& has_lower_wall(map, &message_flag)))
 	{
 		if (message_flag == 1)
-			ft_printf("Error\nThe map must be enclosed/surrounded by right wall.\n");
+			ft_printf("Error\nThe map must be"
+				"enclosed/surrounded by right wall.\n");
 		if (message_flag == 2)
-			ft_printf("Error\nThe map must be enclosed/surrounded by left wall.\n");
+			ft_printf("Error\nThe map must be"
+				"enclosed/surrounded by left wall.\n");
 		if (message_flag == 3)
-			ft_printf("Error\nThe map must be enclosed/surrounded by upper wall.\n");
+			ft_printf("Error\nThe map must be"
+				"enclosed/surrounded by upper wall.\n");
 		if (message_flag == 4)
-			ft_printf("Error\nThe map must be enclosed/surrounded by lower wall.\n");
-		return(1);
+			ft_printf("Error\nThe map must be"
+				"enclosed/surrounded by lower wall.\n");
+		return (1);
 	}
 	return (0);
 }
+
 int	check_invalid_characters(char **map)
 {
 	int	i;
@@ -55,7 +62,8 @@ int	check_invalid_characters(char **map)
 		{
 			if (!is_valid_char(map[i][j]))
 			{
-				ft_printf("Error\nThe map has invalid character(s)\nCharacters allowed are: 0 1 C E P\n");
+				ft_printf("Error\nThe map has invalid character(s).\n");
+				ft_printf("Characters allowed are: 0 1 C E P.\n");
 				return (1);
 			}
 			j++;
@@ -64,6 +72,7 @@ int	check_invalid_characters(char **map)
 	}
 	return (0);
 }
+
 int	check_is_rectangular(char **map)
 {
 	size_t	len;
@@ -72,15 +81,15 @@ int	check_is_rectangular(char **map)
 	i = 0;
 	if (!map || !map[0] || !map[1])
 	{
-		ft_printf("Error\nThe map must be rectangular");
-		return(1);
+		ft_printf("Error\nThe map must be rectangular.\n");
+		return (1);
 	}
 	len = ft_strlen(map[0]);
 	while (map[i] != NULL)
 	{
 		if (ft_strlen(map[i]) != len)
 		{
-			ft_printf("Error\nThe map must be rectangular");
+			ft_printf("Error\nThe map must be rectangular.\n");
 			return (1);
 		}
 		i++;
@@ -93,7 +102,8 @@ int	check_start_exit_coll(char **map)
 	if (map_contain_char(map, 'E') == 0 || map_contain_char(map, 'C') == 0
 		|| map_contain_char(map, 'P') == 0)
 	{
-		ft_printf("Error\nThe map must contain 1 exit, 1 starting position and at least 1 collectible.");
+		ft_printf("Error\nThe map must contain 1 exit,"
+			"1 starting position and at least 1 collectible.\n");
 		return (1);
 	}
 	return (0);

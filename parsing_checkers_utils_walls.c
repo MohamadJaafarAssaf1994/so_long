@@ -6,13 +6,13 @@
 /*   By: mohassaf <mohassaf@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/21 11:05:58 by mohassaf          #+#    #+#             */
-/*   Updated: 2026/04/21 12:40:51 by mohassaf         ###   ########.fr       */
+/*   Updated: 2026/04/24 18:25:26 by mohassaf         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "so_long.h"
 
-int		has_right_wall(char **map, int *message_flag)
+int	has_right_wall(char **map, int *message_flag)
 {
 	int		i;
 	char	last_char_in_row;
@@ -31,7 +31,7 @@ int		has_right_wall(char **map, int *message_flag)
 	return (1);
 }
 
-int		has_left_wall(char **map, int *message_flag)
+int	has_left_wall(char **map, int *message_flag)
 {
 	int		i;
 	char	first_char_in_row;
@@ -50,9 +50,9 @@ int		has_left_wall(char **map, int *message_flag)
 	return (1);
 }
 
-int		has_upper_wall(char **map, int *message_flag)
+int	has_upper_wall(char **map, int *message_flag)
 {
-	int		j;
+	int	j;
 
 	j = 0;
 	while (map[0][j] != '\0')
@@ -67,9 +67,9 @@ int		has_upper_wall(char **map, int *message_flag)
 	return (1);
 }
 
-int		has_lower_wall(char **map, int *message_flag)
+int	has_lower_wall(char **map, int *message_flag)
 {
-	int		j;
+	int	j;
 	int	index_last_row;
 
 	j = 0;

@@ -6,7 +6,7 @@
 /*   By: mohassaf <mohassaf@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/21 10:56:19 by mohassaf          #+#    #+#             */
-/*   Updated: 2026/04/22 18:08:41 by mohassaf         ###   ########.fr       */
+/*   Updated: 2026/04/24 18:25:55 by mohassaf         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,6 +21,8 @@ int	map_contain_char(char **map, char c)
 	count = 0;
 	i = 0;
 	j = 0;
+	if (!map)
+		return (-1);
 	while (map[i] != NULL)
 	{
 		j = 0;
