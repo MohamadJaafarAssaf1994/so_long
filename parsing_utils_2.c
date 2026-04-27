@@ -6,7 +6,7 @@
 /*   By: mohassaf <mohassaf@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/24 18:16:22 by mohassaf          #+#    #+#             */
-/*   Updated: 2026/04/24 19:37:43 by mohassaf         ###   ########.fr       */
+/*   Updated: 2026/04/27 17:00:11 by mohassaf         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,8 +21,7 @@ int	open_file(char *path, char *filename, t_map *map)
 	{
 		free(path);
 		free(map);
-		ft_printf("Error\n");
-		perror(filename);
+		ft_printf("Error\n%s: %s\n.", filename, strerror(errno));
 		exit(1);
 	}
 	return (fd);
@@ -36,15 +35,22 @@ void	set_map_dimensions(t_map *map)
 
 int	name_extension_check(char *filename)
 {
-	char	**tab;
+	char	*base_name;
+	char	*dot;
 
-	tab = ft_split(filename, '.');
-	if (tab_len(tab) != 2 || ft_strlen(tab[1]) != 3 || ft_strncmp(tab[1], "ber",
-			3) != 0)
-	{
-		ft_free_all(tab);
+	base_name = ft_strrchr(filename, '/');
+	if (base_name)
+		base_name++;
+	else
+		base_name = filename;
+	if (*base_name == '\0' || *base_name == '.')
 		return (1);
-	}
-	ft_free_all(tab);
+	dot = ft_strrchr(base_name, '.');
+	if (!dot || dot == base_name)
+		return (1);
+	if (ft_strncmp(dot, ".ber", 5) != 0)
+		return (1);
+	if (ft_strchr(dot + 1, '.'))
+		return (1);
 	return (0);
 }

@@ -56,7 +56,7 @@ make re
 
 For bonus
 ```bash
-make re
+make bonus
 ```
 
 ### Execution

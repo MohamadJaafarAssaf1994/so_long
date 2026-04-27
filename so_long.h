@@ -6,13 +6,15 @@
 /*   By: mohassaf <mohassaf@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/20 12:02:09 by mohassaf          #+#    #+#             */
-/*   Updated: 2026/04/24 19:37:43 by mohassaf         ###   ########.fr       */
+/*   Updated: 2026/04/27 16:00:05 by mohassaf         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "fcntl.h"
 #include "libft/libft.h"
 #include "mlx.h"
+#include <string.h>
+#include <errno.h>
 
 #define ESC 65307
 #define W 119

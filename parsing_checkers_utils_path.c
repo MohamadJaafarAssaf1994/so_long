@@ -6,7 +6,7 @@
 /*   By: mohassaf <mohassaf@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/21 12:21:09 by mohassaf          #+#    #+#             */
-/*   Updated: 2026/04/24 19:19:13 by mohassaf         ###   ########.fr       */
+/*   Updated: 2026/04/27 14:19:05 by mohassaf         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,7 +46,7 @@ char	**copy_map(char **map)
 		return (NULL);
 	i = 0;
 	map_length = tab_len(map);
-	map_copy = (char **)malloc((sizeof(char *) * map_length) + 1);
+	map_copy = (char **)malloc(sizeof(char *) * (map_length + 1));
 	if (!map_copy)
 		return (NULL);
 	while (map[i] != NULL)
