@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   run_game_2.c                                       :+:      :+:    :+:   */
+/*   run_game_2_bonus.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: mohassaf <mohassaf@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/24 18:32:37 by mohassaf          #+#    #+#             */
-/*   Updated: 2026/04/24 19:36:29 by mohassaf         ###   ########.fr       */
+/*   Updated: 2026/04/27 14:11:24 by mohassaf         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -81,7 +81,7 @@ void	enemy_loop(t_game *game)
 
 void	setup_hooks(t_game *game)
 {
-	mlx_key_hook(game->win, key_press, game);
+	mlx_key_hook(game->win, (void *)key_press, game);
 	mlx_loop_hook(game->mlx, (void *)enemy_loop, game);
 	mlx_hook(game->win, 17, 0, (void *)close_game, game);
 }
