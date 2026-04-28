@@ -6,21 +6,24 @@
 /*   By: mohassaf <mohassaf@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/20 12:02:09 by mohassaf          #+#    #+#             */
-/*   Updated: 2026/04/27 16:00:05 by mohassaf         ###   ########.fr       */
+/*   Updated: 2026/04/28 18:09:14 by mohassaf         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "fcntl.h"
-#include "libft/libft.h"
-#include "mlx.h"
-#include <string.h>
-#include <errno.h>
+#ifndef SO_LONG_H
+# define SO_LONG_H
 
-#define ESC 65307
-#define W 119
-#define A 97
-#define S 115
-#define D 100
+# include "fcntl.h"
+# include "libft/libft.h"
+# include "mlx.h"
+# include <string.h>
+# include <errno.h>
+
+# define ESC 65307
+# define W 119
+# define A 97
+# define S 115
+# define D 100
 
 typedef struct s_point
 {
@@ -127,3 +130,5 @@ int			key_press(int keycode, void *param);
 void		move_player(t_game *game, int x, int y);
 int			name_extension_check(char *filename);
 void		check_enemy_collision(t_game *game);
+
+#endif
