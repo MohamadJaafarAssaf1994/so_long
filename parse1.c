@@ -6,7 +6,7 @@
 /*   By: mohassaf <mohassaf@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/20 12:01:35 by mohassaf          #+#    #+#             */
-/*   Updated: 2026/04/27 17:39:02 by mohassaf         ###   ########.fr       */
+/*   Updated: 2026/04/28 14:46:46 by mohassaf         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -96,7 +96,7 @@ t_map	*file_to_map(char *filename)
 	map = malloc(sizeof(t_map));
 	if (!map)
 		return (NULL);
-	file_path = ft_strjoin("maps/", filename);
+	file_path = ft_strdup(filename);
 	fd = open_file(file_path, filename, map);
 	map->map_array = get_map(fd, file_path);
 	free(file_path);
