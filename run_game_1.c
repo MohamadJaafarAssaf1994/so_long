@@ -43,24 +43,13 @@ static void	player_free_go(t_game *game, int y, int next_pos_x, int next_pos_y)
 	render_map(game);
 }
 
-static void	player_hits_exit(t_game *game, int y, int next_pos_x,
-		int next_pos_y)
+static void	player_hits_exit(t_game *game)
 {
 	if (game->collected != game->collectibles)
 		return ;
 	game->moves++;
 	ft_printf("You win!\n");
 	close_game(game);
-	game->map->map_array[game->p_pt.x][game->p_pt.y] = '0';
-	game->map->map_array[next_pos_x][next_pos_y] = 'P';
-	game->p_pt.x = next_pos_x;
-	game->p_pt.y = next_pos_y;
-	if ((y == -1 && game->cu_fr_ch == 1) || (y == 1 && game->cu_fr_ch == 0))
-		game->cu_fr_sa = (game->cu_fr_sa + 1) % 4;
-	else if ((y == 1 && game->cu_fr_ch == 1) || (y == -1
-			&& game->cu_fr_ch == 0))
-		game->cu_fr_ch = (game->cu_fr_ch + 1) % 2;
-	render_map(game);
 }
 
 void	move_player(t_game *game, int x, int y)
@@ -77,5 +66,5 @@ void	move_player(t_game *game, int x, int y)
 	else if (game->map->map_array[new_x][new_y] == '0')
 		player_free_go(game, y, new_x, new_y);
 	else if (game->map->map_array[new_x][new_y] == 'E')
-		player_hits_exit(game, y, new_x, new_y);
+		player_hits_exit(game);
 }

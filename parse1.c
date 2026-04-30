@@ -15,6 +15,8 @@
 void	parse_game(t_game *game, char *filename)
 {
 	game->map = file_to_map(filename);
+	if (!game->map)
+		error_exit("Error\nFailed to load map\n");
 	game->p_pt = find_coordinates_by_char(game, 'P');
 	game->exit_point = find_coordinates_by_char(game, 'E');
 	game->collectibles = count_coll_by_char(game);

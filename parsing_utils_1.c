@@ -106,6 +106,8 @@ int	lines_count(char *file_path)
 
 	count = 0;
 	fd = open(file_path, O_RDONLY);
+	if (fd < 0)
+		return (0);
 	line = get_next_line(fd);
 	while (line != NULL)
 	{
@@ -114,5 +116,6 @@ int	lines_count(char *file_path)
 		line = get_next_line(fd);
 	}
 	close(fd);
+	get_next_line(-1);
 	return (count);
 }

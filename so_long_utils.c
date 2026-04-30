@@ -54,7 +54,7 @@ void	print_tab(char **tab)
 
 void	error_exit(char *message)
 {
-	ft_printf(message);
+	ft_printf("%s", message);
 	exit(1);
 }
 
