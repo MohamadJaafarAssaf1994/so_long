@@ -33,16 +33,16 @@ int	check_walls(char **map)
 	{
 		if (message_flag == 1)
 			ft_printf("Error\nThe map must be"
-				"enclosed/surrounded by right wall.\n");
+				" enclosed/surrounded by right wall.\n");
 		if (message_flag == 2)
 			ft_printf("Error\nThe map must be"
-				"enclosed/surrounded by left wall.\n");
+				" enclosed/surrounded by left wall.\n");
 		if (message_flag == 3)
 			ft_printf("Error\nThe map must be"
-				"enclosed/surrounded by upper wall.\n");
+				" enclosed/surrounded by upper wall.\n");
 		if (message_flag == 4)
 			ft_printf("Error\nThe map must be"
-				"enclosed/surrounded by lower wall.\n");
+				" enclosed/surrounded by lower wall.\n");
 		return (1);
 	}
 	return (0);

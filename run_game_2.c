@@ -62,6 +62,6 @@ int	close_game(void *param)
 
 void	setup_hooks(t_game *game)
 {
-	mlx_key_hook(game->win, key_press, game);
+	mlx_key_hook(game->win, (void *)key_press, game);
 	mlx_hook(game->win, 17, 0, (void *)close_game, game);
 }

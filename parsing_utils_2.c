@@ -48,9 +48,9 @@ int	name_extension_check(char *filename)
 	dot = ft_strrchr(base_name, '.');
 	if (!dot || dot == base_name)
 		return (1);
-	if (ft_strncmp(dot, ".ber", 5) != 0)
+	if (ft_strchr(base_name, '.') != dot)
 		return (1);
-	if (ft_strchr(dot + 1, '.'))
+	if (ft_strncmp(dot, ".ber", 5) != 0)
 		return (1);
 	return (0);
 }
