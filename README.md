@@ -71,8 +71,6 @@ Or
 ```bash
 ./so_long_bonus maps/valid_path.ber
 ```
-Important note: the program automatically looks inside the `maps/` directory, so you
-should pass the file name, not the full path.
 
 Example available maps:
 
